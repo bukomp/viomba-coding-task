@@ -41,16 +41,25 @@ Light
 Here is an example of an intended tree structure with a cyclic link removed:
 ```
 Light
-  Electromagnetic_radiation
-    ### Electromagnetic_radiation ### [removed from the tree as it is cyclic link]
-    Linear_polarization
-    Physics
-    Electromagnetic_field
   Dispersive_prism
-    ### Light ### [removed from the tree as it is cyclic link]
-    Fused_quartz
-    Ultraviolet
-    Infrared
+
+###
+Following link is removed from the tree as it is cyclic link and will result in a loop.
+###
+
+    ### Dispersive_prism ### 
+    Optics
+
+###  
+ Even though following link is cyclic, the link isn't removed. The link is found at the lowest level, and since links at this level aren't opened, it won't lead to an infinite loop. 
+###
+      
+      ### Dispersive_prism ### 
+      Index_of_physics_articles
+      Outline_of_physics
+    Prism_(optics)
+      Optics
+...
 ```
 
 
