@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "Node16",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./dist" /* Specify a file that bundles all outputs into one JavaScript file. */,
+    "rootDir": "./src" /* Specify the root directory of input files. */,
+    "declaration": false /* Do not generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "sourceMap": false /* Do not create source map files for emitted JavaScript files. */,
+    "removeComments": true /* Remove comments from the output files. */
+  }
+}
