@@ -1,7 +1,7 @@
 {
   "name": "viomba-coding-task",
   "version": "1.0.0",
-  "description": "Write a programme which outputs into the console an intended tree structure listing of articles that are linked to a chosen article by following the links in the article.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
