@@ -5,9 +5,12 @@ const getLinks = async (
   article: string,
   depth: number,
   limit: number,
-  indentation = ''
+  indentation = '',
+  visited = new Set<string>()
 ): Promise<void> => {
   if (depth < 0) return;
+
+  visited.add(article);
 
   const { data } = await axios.get(`https://en.wikipedia.org/wiki/${article}`);
   const $ = cheerio.load(data);
@@ -21,7 +24,8 @@ const getLinks = async (
       link &&
       link.startsWith('/wiki/') &&
       !link.includes(':') &&
-      links.length < limit
+      links.length < limit &&
+      !visited.has(decodeURIComponent(link.slice(6)))
     ) {
       const decodedLink = decodeURIComponent(link.slice(6));
       links.push(decodedLink);
@@ -30,7 +34,15 @@ const getLinks = async (
 
   console.log(`${indentation}${article}`);
   for (const link of links) {
-    await getLinks(link, depth - 1, limit, `${indentation}  `);
+    if (!visited.has(link)) {
+      await getLinks(
+        link,
+        depth - 1,
+        limit,
+        `${indentation}  `,
+        new Set(visited)
+      );
+    }
   }
 };
 
