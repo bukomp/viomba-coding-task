@@ -37,7 +37,23 @@ Light
 
 - **URI Decoding**: All the links fetched have their URI encoded characters decoded back to their original form. This ensures that links are processed in their natural, readable form, especially when containing special characters.
 
-- **Cyclic Link Prevention**: To avoid any potential infinite loops and make the output concise, cyclic links are not included in the final tree structure. A `visited` set is used to keep track of the articles that have already been processed.
+- **Cyclic Link Prevention**: To avoid any potential infinite loops and make the output concise, cyclic links are not included in the final tree structure. A `visited` set is used to keep track of the articles that have already been processed. 
+Here is an example of an intended tree structure with a cyclic link removed:
+```
+Light
+  Electromagnetic_radiation
+    ### Electromagnetic_radiation ### [removed from the tree as it is cyclic link]
+    Linear_polarization
+    Physics
+    Electromagnetic_field
+  Dispersive_prism
+    ### Light ### [removed from the tree as it is cyclic link]
+    Fused_quartz
+    Ultraviolet
+    Infrared
+```
+
+
 
 **Note**: While creating this solution, I aimed to adhere to the given instructions and also applied logical reasoning to make certain decisions that would improve the program's functionality and user experience.
 
