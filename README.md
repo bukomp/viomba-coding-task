@@ -33,7 +33,7 @@ Light
 
 ### Key Decisions
 
-- **Ignore Initial Divs**: The code is specifically designed to disregard any `div` elements with a `role` attribute set to `"note"` that appear before the first paragraph. This ensures that these elements, which are likely not primary content, do not interfere with the main purpose of the application.
+- **Ignore Initial Divs**: The code is specifically designed to disregard any `div` elements with a `role` attribute set to `"note"` that appear before the first paragraph (based on example). This ensures that these elements, which are likely not primary content, do not interfere with the main purpose of the application.
 
 - **URI Decoding**: All the links fetched have their URI encoded characters decoded back to their original form. This ensures that links are processed in their natural, readable form, especially when containing special characters.
 
@@ -46,11 +46,12 @@ Light
 
 - **Main Entry Point:** `index.js`
 - **Commands:** 
-  - `npm test` - It appears no test has been specified for this project yet, as the command will throw an error.
   - `npm run build` - Compiles the TypeScript code using the TypeScript compiler.
+  - `npm start` - Runs the compiled JavaScript code from the `dist/index.js` file.
 - **Dependencies**:
   - `axios`: A popular HTTP client used for making requests.
   - `cheerio`: A fast, flexible, and lean implementation of core jQuery designed specifically for the server.
+
 ### Code Explanation
 
 1. **Imports**: 
@@ -58,11 +59,20 @@ Light
    - `cheerio` is used for parsing the fetched HTML data.
 
 2. **Function: `getLinks`**: 
-   - It's an asynchronous function that recursively fetches links from a Wikipedia article.
-   - The depth specifies how deep the function should go when following links.
-   - Limit determines how many links to fetch per article.
-   - `visited` set keeps track of already visited articles to avoid cyclic reference.
-   - The function fetches data from Wikipedia, then uses cheerio to parse the links from the article content.
+   - This is an asynchronous function that fetches and processes links from a given Wikipedia article.
+   - It takes five parameters: `article`, `depth`, `limit`, `indentation`, and `visited`.
+   - `article` is the name of the Wikipedia article from which to start fetching links.
+   - `depth` is the number of levels to follow links. If `depth` is 0, the function will only print the current article. If `depth` is less than 0, the function will return without doing anything.
+   - `limit` is the maximum number of links to fetch from each article.
+   - `indentation` is a string used to indent the printed article names according to their depth level. It defaults to an empty string.
+   - `visited` is a Set used to keep track of already visited articles to prevent cyclic references and repeated processing. It defaults to a new, empty Set.
+   - The function first checks the `depth` parameter to determine whether to continue processing.
+   - It then adds the current `article` to the `visited` set to avoid revisiting it in the future.
+   - The function fetches the HTML content of the `article` from Wikipedia using `axios`, and loads it into `cheerio` for parsing.
+   - It removes any `div` elements with a `role` attribute set to `"note"` that appear before the first paragraph.
+   - It then finds all `a` elements (links) in the article content, and processes them according to the `limit` and `visited` set.
+   - The function prints the current `article` name, indented according to its depth level.
+   - Finally, it recursively calls itself for each unvisited link found, decreasing the `depth` by 1 and passing the updated `visited` set.
 
 3. **Function: `main`**: 
    - It's the main function that acts as the entry point.

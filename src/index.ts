@@ -9,6 +9,10 @@ const getLinks = async (
   visited = new Set<string>()
 ): Promise<void> => {
   if (depth < 0) return;
+  else if (depth === 0) {
+    console.log(`${indentation}${article}`);
+    return;
+  }
 
   visited.add(article);
 

@@ -40,6 +40,10 @@ const cheerio = __importStar(require("cheerio"));
 const getLinks = (article, depth, limit, indentation = '', visited = new Set()) => __awaiter(void 0, void 0, void 0, function* () {
     if (depth < 0)
         return;
+    else if (depth === 0) {
+        console.log(`${indentation}${article}`);
+        return;
+    }
     visited.add(article);
     const { data } = yield axios_1.default.get(`https://en.wikipedia.org/wiki/${article}`);
     const $ = cheerio.load(data);
